@@ -13,6 +13,13 @@ public class Main {
 
 	//////////// PARTE DE PABLO ////////////
 
+	/**
+	 * Desordena el array dado de forma aleatoria
+	 *
+	 * @param array Un array de enteros
+	 * @return El array con los elementos desordenados
+	 */
+	private static int[] shuffleArray(int[] array) {}
 
 	////////////////////////////////////////
 
