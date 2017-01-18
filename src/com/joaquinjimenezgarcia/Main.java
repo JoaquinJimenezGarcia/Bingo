@@ -2,6 +2,12 @@ package com.joaquinjimenezgarcia;
 
 public class Main {
 
+	// El bote con las bolas de la partida.
+	private static int[] pot;
+
+	// La bola actual dentro del array pot.
+	private static int currentBall = 0;
+
 	public static void main(String[] args) {
 
 	}
@@ -19,7 +25,32 @@ public class Main {
 	 * @param array Un array de enteros
 	 * @return El array con los elementos desordenados
 	 */
-	private static int[] shuffleArray(int[] array) {}
+	private static int[] shuffleArray(int[] array) {
+		/*
+		 *	Implementación de la versión de Richard Durstenfeld de la mezcla de Fisher–Yates
+		 *	https://en.wikipedia.org/wiki/Fisher%E2%80%93Yates_shuffle
+		 */
+		for (int i = 0; i < array.length - 1; i++) {
+			int j = randomInteger(i, array.length - 2);
+
+			// Intercambiar array[i] con array[j]
+			// Para ello, guardamos array[j] en una variable temporal
+			int tmp = array[j];
+			array[j] = array[i];
+			array[i] = tmp;
+		}
+
+		return array;
+	}
+
+	/**
+	 * @param min El número mínimo, incluido.
+	 * @param max El número máximo, incluido.
+	 * @return Un número aleatorio entre min y max
+	 */
+	private static int randomInteger(int min, int max) {
+		return (int) (Math.random() * (((max - min) + 1) + min));
+	}
 
 	////////////////////////////////////////
 
