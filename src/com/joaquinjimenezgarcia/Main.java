@@ -69,8 +69,19 @@ public class Main {
 
 	////////////////////////////////////////
 
-	//// PARTE DEL SOPLAPOLLAS DE JOAKI ////
+	//// PARTE DEL PUTO AMO DE JOAKI ////
+	static void createPaper(){
+		int paper [] = new int[15];
+		int num;
 
+		for (int i = 0; i < paper.length; i++) {
+			num = (int)((1 + Math.random() * 90);
+			for (int j = 0; j < paper.length; j++) {
+				if(num != paper[i])
+			}
+		}
+
+	}
 
 	////////////////////////////////////////
 }
