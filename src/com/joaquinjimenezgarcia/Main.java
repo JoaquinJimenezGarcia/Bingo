@@ -1,5 +1,8 @@
 package com.joaquinjimenezgarcia;
 
+import java.util.Arrays;
+import java.util.Random;
+
 public class Main {
 
 	// El bote con las bolas de la partida.
@@ -9,6 +12,8 @@ public class Main {
 	private static int currentBall = 0;
 
 	public static void main(String[] args) {
+
+
 
 	}
 
@@ -71,13 +76,39 @@ public class Main {
 
 	//// PARTE DEL PUTO AMO DE JOAKI ////
 	static void createPaper(){
-		int paper [] = new int[15];
-		int num;
+		int cantidad = 15; //numeros aleatorio
+		int aux = cantidad;  //auxiliar;
+		int[] numeros = new int[cantidad];
+		int[] resultado = new int[cantidad];
+		Random rnd = new Random();
+		int res;
 
-		for (int i = 0; i < paper.length; i++) {
-			num = (int)((1 + Math.random() * 90);
-			for (int j = 0; j < paper.length; j++) {
-				if(num != paper[i])
+
+		//se rellena una array del 1 al 90
+		for(int i=0;i<cantidad;i++){
+			numeros[i]=(int)((1 + Math.random() * 90));
+		}
+
+		for(int i=0;i<cantidad;i++){
+			res=rnd.nextInt(aux);
+			resultado[i]=numeros[res];
+			numeros[res]=numeros[aux-1];
+			aux--;
+
+		}
+
+		//Ordena el array
+		Arrays.sort(resultado);
+
+		//se imprime el resultado;
+		System.out.println("CARTON");
+		System.out.println("======");
+
+		for(int i=0;i<cantidad;i++){
+			System.out.print(resultado[i] + " ");
+
+			if(i == 4 || i == 9){
+				System.out.println();
 			}
 		}
 
