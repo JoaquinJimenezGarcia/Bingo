@@ -2,6 +2,7 @@ package com.joaquinjimenezgarcia;
 
 import java.util.Arrays;
 import java.util.Random;
+import java.util.Scanner;
 
 public class Main {
 
@@ -13,7 +14,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
-
+		createPapers();
 
 	}
 
@@ -71,6 +72,18 @@ public class Main {
 
 	//////////// PARTE DE JORGE ////////////
 
+	static void createPapers() {
+		Scanner input = new Scanner(System.in);
+
+		int num;
+
+		System.out.println("Numero de cartones para jugar:");
+		num=input.nextInt();
+
+		for (int i = 0; i < num ; i++) {
+			createPaper();
+		}
+	}
 
 	////////////////////////////////////////
 
@@ -107,7 +120,7 @@ public class Main {
 		for(int i=0;i<cantidad;i++){
 			System.out.print(resultado[i] + " ");
 
-			if(i == 4 || i == 9){
+			if(i == 4 || i == 9 || i == 14){
 				System.out.println();
 			}
 		}
