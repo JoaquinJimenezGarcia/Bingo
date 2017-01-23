@@ -15,10 +15,26 @@ public class Main {
 	public static void main(String[] args) {
 
 		createPapers();
-
+		nextTurn(pot);
 	}
 
 	//////////// PARTE DE MARCO ////////////
+
+	public static void nextTurn(int array[]){
+		boolean checkLine = false;
+		int contBall = 0;
+
+		for (int i=0; i < array.length; i++){
+
+			if (i >= 5){
+				checkLine = true;
+			}
+			contBall++;
+			System.out.println();
+			System.out.println("Bola " + array[i]);
+			System.out.println();
+		}
+	}
 
 
 	////////////////////////////////////////
@@ -134,11 +150,9 @@ public class Main {
 Pregunta por cartones
 Bolas del 1 al 90
 Cartones con 3 filas de 5 números (15 nums)
-
 Generar bolas (descartando las que sales)
 Los cartones presentan los números ordenados de menor a mayor
-
 Hay que mostrar qué cartón ha ganado con los números que han salido
 Y el total de bolas que han salido con sus números
-
  */
+
