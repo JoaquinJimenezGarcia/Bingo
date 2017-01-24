@@ -14,6 +14,7 @@ public class Main {
 
 	public static void main(String[] args) {
 
+		pot = createPot();
 		createPapers();
 		nextTurn(pot);
 	}
@@ -77,6 +78,20 @@ public class Main {
 	////////////////////////////////////////
 
 	//////////// PARTE DE ALE //////////////
+
+	/**
+	 * Funcion Que crea un bote con numeros del 1 al 90 desordenados
+	 * @return Devuelve el bote desordenado
+	 */
+	static int [] createPot (){
+		int array [] = new int [90];
+
+		for (int i = 0; i < array.length; i++){
+			array [i] = i + 1;
+
+		}
+		return shuffleArray(array);
+	}
 
 
 	////////////////////////////////////////
