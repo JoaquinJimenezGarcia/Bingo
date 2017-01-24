@@ -16,23 +16,27 @@ public class Main {
 
 		pot = createPot();
 		createPapers();
-		nextTurn(pot);
+		nextTurn();
 	}
 
 	//////////// PARTE DE MARCO ////////////
 
-	public static void nextTurn(int array[]){
-		boolean checkLine = false;
-		int contBall = 0;
+	/**
+	 *	Función que coge las bolas del bote generado y las va sacando de 1 en 1 y mostrando por pantalla.
+	 *
+	 */
+	public static void nextTurn(){
 
-		for (int i=0; i < array.length; i++){
+		for (int i=0; i < pot.length; i++){
 
-			if (i >= 5){
-				checkLine = true;
+			// A partir de la quinta bola sacada del bote, comprobamos con la función checkLine si se produce línea con
+			// cada nueva bola sacada
+			if (i >= 4){
+			//checkLine();
 			}
-			contBall++;
+			// Imprimimos las bolas extraídas del bote
 			System.out.println();
-			System.out.println("Bola " + array[i]);
+			System.out.println("Bola " + pot[i]);
 			System.out.println();
 		}
 	}
@@ -90,6 +94,7 @@ public class Main {
 			array [i] = i + 1;
 
 		}
+		//Llamada a la función de desordenación del array
 		return shuffleArray(array);
 	}
 
