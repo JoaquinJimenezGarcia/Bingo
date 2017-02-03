@@ -12,10 +12,10 @@ public class Main {
 	// La bola actual dentro del array pot.
 	private static int currentBall = 0;
 
-	public static void main(String[] args) {
+	private static Scanner input = new Scanner(System.in);
 
+	public static void main(String[] args) {
 		pot = createPot();
-		createPapers();
 		nextTurn();
 	}
 
