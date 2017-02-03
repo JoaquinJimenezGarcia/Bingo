@@ -1,5 +1,6 @@
 package com.joaquinjimenezgarcia;
 
+import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Random;
 import java.util.Scanner;
@@ -124,7 +125,7 @@ public class Main {
 	////////////////////////////////////////
 
 	//// PARTE DEL PUTO AMO DE JOAKI ////
-	static void createPaper(){
+	static int [] createPaper(){
 		int cantidad = 15; //numeros aleatorio
 		int aux = cantidad;  //auxiliar;
 		int[] numeros = new int[cantidad];
@@ -150,16 +151,7 @@ public class Main {
 		Arrays.sort(resultado);
 
 		//se imprime el resultado;
-		System.out.println("CARTON");
-		System.out.println("======");
-
-		for(int i=0;i<cantidad;i++){
-			System.out.print(resultado[i] + " ");
-
-			if(i == 4 || i == 9 || i == 14){
-				System.out.println();
-			}
-		}
+		return resultado;
 
 	}
 
