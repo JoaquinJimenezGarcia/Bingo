@@ -10,12 +10,27 @@ public class Main {
 	// El bote con las bolas de la partida.
 	private static int[] pot;
 
+	// Array que contiene todos los cartones generados.
+	private static int[][][] papers;
+
 	// La bola actual dentro del array pot.
-	private static int currentBall = 0;
+	private static int currentBall = 16;
+
+	// Está en false mientras no haya salido línea en ningún cartón.
+	private static boolean hasLineComeOut = false;
 
 	private static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) {
+		int numCartones;
+
+		System.out.print("Introduzca el número de cartones a generar: ");
+		numCartones = input.nextInt();
+		papers = createPapers(numCartones);
+
+		System.out.println("Pulse ENTER para empezar.");
+		input.nextLine();
+
 		pot = createPot();
 		nextTurn();
 	}
@@ -33,7 +48,7 @@ public class Main {
 			// A partir de la quinta bola sacada del bote, comprobamos con la función checkLine si se produce línea con
 			// cada nueva bola sacada
 			if (i >= 4){
-			//checkLine();
+				checkPapers(papers);
 			}
 			// Imprimimos las bolas extraídas del bote
 			System.out.println();
@@ -99,10 +114,101 @@ public class Main {
 		return shuffleArray(array);
 	}
 
-
 	////////////////////////////////////////
 
 	//////////// PARTE DE FRAN /////////////
+
+	/**
+	 * Funcion que comprueba si un carton tiene linea o bingo,
+	 * copiando el carton en un array paperCopy y poniendo los
+	 * numeros que ya salieron en el pot a 0 en dicho array.
+	 * Si la suma de todos los numeros de una fila es 0, hay linea en ese carton.
+	 * Si la suma de todos los numeros del carton es 0, hay bingo en ese carton.
+	 * @param paper int Array de dos dimensiones con los valores a comprobar.
+	 * @return String Devuelve bingo, line o nothing dependiendo de las comprobaciones.
+	 */
+	static String checkPaper(int paper[][]){
+		int potNumber, bingo = 0;
+		int paperCopy[][] = new int[3][5];
+		boolean checkLine=false;
+
+		//Copia el array paper en paperCopy
+		for (int i = 0; i < paper.length; i++) {
+			for (int j = 0; j < paper[i].length; j++) {
+				paperCopy[i][j] = paper[i][j];
+			}
+		}
+
+		//Bucle que itera por cada numero del pot que haya salido.
+		for (int i = 0; i < currentBall; i++) {
+			potNumber = pot[i];
+
+			//Pone a 0 los numeros de paperCopy que ya hayan salido en el pot.
+			for (int j = 0; j < paperCopy.length; j++) {
+				for (int k = 0; k < paperCopy[j].length; k++) {
+					if (potNumber == paperCopy[j][k]){
+						paperCopy[j][k] = 0;
+					}
+				}
+			}
+		}
+
+		//Comprueba si hay linea en cada fila del carton.
+		for (int i = 0, line = 0; i < paperCopy.length && !checkLine; i++) {
+			for (int j = 0; j < paperCopy[i].length; j++) {
+				line += paperCopy[i][j];
+
+			}
+
+			if (line == 0){
+				checkLine = true;
+
+			}
+		}
+
+		//Comprueba si hay bingo en el carton.
+		for (int i = 0; i < paperCopy.length; i++) {
+			for (int j = 0; j < paperCopy[i].length; j++) {
+				bingo += paperCopy[i][j];
+			}
+		}
+
+		if (bingo == 0){
+			return "bingo";
+		}else if (checkLine){
+			return "line";
+		}else{
+			return "nothing";
+		}
+	}
+
+	/**
+	 * Funcion que comprueba si hay linea o bingo en cada uno de los cartones con cada bola que va saliendo en el pot.
+	 * @param papers int Array papers en el que la primera dimension es el numero de carton y las otras dos los calores que se comprueban.
+	 */
+	static void checkPapers(int papers[][][]){
+		//Bucle que comprueba si hay linea o bingo en cada uno de los cartones.
+
+		for (int i = 0; i < papers.length; i++) {
+			switch (checkPaper(papers[i])){
+				case "bingo":
+					System.out.println("Hay bingo en el carton " + i + "!!!!");
+					return;
+				case "line":
+					if (!hasLineComeOut) {
+						System.out.println("Hay linea en el carton " + i + "!!!!");
+						hasLineComeOut = true;
+					}
+					// No ponemos break para que se ejecute nextTurn()
+				case "nothing":
+					nextTurn();
+					break;
+			}
+
+		}
+	}
+
+
 
 
 	////////////////////////////////////////
