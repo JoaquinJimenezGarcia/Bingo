@@ -125,34 +125,54 @@ public class Main {
 	////////////////////////////////////////
 
 	//// PARTE DEL PUTO AMO DE JOAKI ////
-	static int [] createPaper(){
-		int cantidad = 15; //numeros aleatorio
-		int aux = cantidad;  //auxiliar;
-		int[] numeros = new int[cantidad];
-		int[] resultado = new int[cantidad];
-		Random rnd = new Random();
-		int res;
 
+	/**
+	 * First creates a single array with no-repeated numbers and orders it.
+	 * Then, places them in a two dimensions array for an easier checking of lines
+	 * @return paper array
+	 */
+	static int[][] createPaper(){
+		int quantity = 5; // random numbers
+		int lines = 3; // lines
+		int [] array = new int [quantity*lines]; // single array for order
+		int [][] paper = new int[lines][quantity]; // new array with lines
 
-		//se rellena una array del 1 al 90
-		for(int i=0;i<cantidad;i++){
-			numeros[i]=(int)((1 + Math.random() * 90));
+		// Fill the first array
+		for (int i = 0; i < quantity*lines ; i++) {
+			int number = 0;
+			do{
+				number = (int)((1 + Math.random() * 90));
+			}while(exists(number, array)); // Call the function to check numbers
+
+			array[i] = number;
 		}
 
-		for(int i=0;i<cantidad;i++){
-			res=rnd.nextInt(aux);
-			resultado[i]=numeros[res];
-			numeros[res]=numeros[aux-1];
-			aux--;
+		// Order it
+		Arrays.sort(array);
 
+		// Place numbers in the new array
+		for (int i = 0, j = 0; i < lines ; i++) {
+			for (int k = 0; k < quantity; k++, j++) { // "j" is for the single array
+				paper[i][k] = array[j];
+			}
 		}
+		return paper; // Returns the new array
+	}
 
-		//Ordena el array
-		Arrays.sort(resultado);
-
-		//se imprime el resultado;
-		return resultado;
-
+	/**
+	 * Function that checks if the number exists in the array
+	 * @param number
+	 * @param array
+	 * @return true or false (depens on the existence of the number in the array)
+	 */
+	public static boolean exists(int number, int [] array){
+		for (int i = 0; i < array.length; i++) {
+			// Checks if number exists at "i" in the array
+			if(number == array[i]){
+				return true; // If exists, returns true
+			}
+		}
+		return false; // If doesn't exist, returns false
 	}
 
 	////////////////////////////////////////
