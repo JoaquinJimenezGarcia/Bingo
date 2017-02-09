@@ -27,7 +27,17 @@ public class Main {
 		numCartones = input.nextInt();
 		papers = createPapers(numCartones);
 
-		System.out.println("Pulse ENTER para empezar.");
+		for (int i = 0; i < papers.length; i++) {
+			int[][] paper = papers[i];
+
+			System.out.println("\nCARTÓN " + (i+1));
+			System.out.println("========");
+			System.out.println(paperToString(paper));
+		}
+
+		System.out.println("Pulse ENTER para empezar.\n" +
+							   "Tras ello, pulse ENTER para sacar una bola.");
+		input.nextLine();
 		input.nextLine();
 
 		pot = createPot();
@@ -42,17 +52,19 @@ public class Main {
 	 */
 	private static void nextTurn(){
 
-		System.out.println(pot[currentBall]);
-			currentBall++;
+		System.out.println("Bola #" + (currentBall+1) + ": " + pot[currentBall]);
+		currentBall++;
 
-			// Antes de la quinta bola sacada no se puede producir una línea,
-			// por lo tanto comprobamos la función checkpapers a partir de
-		    // la quinta bola.
-			if (currentBall >= 4){
-				checkPapers(papers);
-			}else {
-				nextTurn();
-			}
+		input.nextLine();
+
+		// Antes de la quinta bola sacada no se puede producir una línea,
+		// por lo tanto comprobamos la función checkpapers a partir de
+		// la quinta bola.
+		if (currentBall >= 4){
+			checkPapers(papers);
+		}else {
+			nextTurn();
+		}
 	}
 
 
@@ -91,6 +103,23 @@ public class Main {
 	 */
 	private static int randomInteger(int min, int max) {
 		return (int) (Math.random() * (((max - min) + 1) + min));
+	}
+
+	private static String paperToString(int[][] paper) {
+		String result = "";
+
+		for (int i = 0; i < paper.length; i++) {
+			int[] row = paper[i];
+
+			for (int j = 0; j < row.length; j++) {
+				int number = row[j];
+				result += number + (j != row.length - 1 ? " " : "");
+			}
+
+			result += "\n";
+		}
+
+		return result;
 	}
 
 	////////////////////////////////////////
@@ -152,7 +181,7 @@ public class Main {
 		}
 
 		//Comprueba si hay linea en cada fila del carton.
-		for (int i = 0, line = 0; i < paperCopy.length && !checkLine; i++) {
+		for (int i = 0, line = 0; i < paperCopy.length && !checkLine && !hasLineComeOut; i++) {
 			for (int j = 0; j < paperCopy[i].length; j++) {
 				line += paperCopy[i][j];
 
@@ -185,25 +214,31 @@ public class Main {
 	 * @param papers int Array papers en el que la primera dimension es el numero de carton y las otras dos los calores que se comprueban.
 	 */
 	private static void checkPapers(int papers[][][]){
-		//Bucle que comprueba si hay linea o bingo en cada uno de los cartones.
+		// Es remotamente posible que hayan dos o más cartones idénticos que tengan bingos
+		// a la vez. Por lo tanto almacenamos en esta variable si al menos uno tiene bingo.
+		boolean hasBingoComeOut = false;
 
+		//Bucle que comprueba si hay linea o bingo en cada uno de los cartones.
 		for (int i = 0; i < papers.length; i++) {
 			switch (checkPaper(papers[i])){
 				case "bingo":
-					System.out.println("Hay bingo en el carton " + i + "!!!!");
-					return;
+					hasBingoComeOut = true;
+					System.out.println("Hay bingo en el carton " + (i+1) + "!!!!");
+					break;
 				case "line":
 					if (!hasLineComeOut) {
-						System.out.println("Hay linea en el carton " + i + "!!!!");
+						System.out.println("Hay linea en el carton " + (i+1) + "!\n");
 						hasLineComeOut = true;
 					}
-					// No ponemos break para que se ejecute nextTurn()
-				case "nothing":
-					nextTurn();
 					break;
 			}
-
 		}
+
+		if (hasBingoComeOut) {
+			return; // Este return no llama a nextTurn(), por lo tanto el juego se termina.
+		}
+
+		nextTurn();
 	}
 
 
