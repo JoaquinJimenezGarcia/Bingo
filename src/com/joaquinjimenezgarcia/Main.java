@@ -1,10 +1,9 @@
 package com.joaquinjimenezgarcia;
 
-import java.lang.reflect.Array;
 import java.util.Arrays;
-import java.util.Random;
 import java.util.Scanner;
 
+@SuppressWarnings({"ForLoopReplaceableByForEach", "ManualArrayCopy"})
 public class Main {
 
 	// El bote con las bolas de la partida.
@@ -14,7 +13,7 @@ public class Main {
 	private static int[][][] papers;
 
 	// La bola actual dentro del array pot.
-	private static int currentBall = 16;
+	private static int currentBall = 0;
 
 	// Está en false mientras no haya salido línea en ningún cartón.
 	private static boolean hasLineComeOut = false;
@@ -41,7 +40,7 @@ public class Main {
 	 *	Función que coge las bolas del bote generado y las va sacando de 1 en 1 y mostrando por pantalla.
 	 *
 	 */
-	public static void nextTurn(){
+	private static void nextTurn(){
 
 		for (int i=0; i < pot.length; i++){
 
@@ -103,7 +102,7 @@ public class Main {
 	 * Funcion Que crea un bote con numeros del 1 al 90 desordenados
 	 * @return Devuelve el bote desordenado
 	 */
-	static int [] createPot (){
+	private static int [] createPot(){
 		int array [] = new int [90];
 
 		for (int i = 0; i < array.length; i++){
@@ -127,7 +126,7 @@ public class Main {
 	 * @param paper int Array de dos dimensiones con los valores a comprobar.
 	 * @return String Devuelve bingo, line o nothing dependiendo de las comprobaciones.
 	 */
-	static String checkPaper(int paper[][]){
+	private static String checkPaper(int paper[][]){
 		int potNumber, bingo = 0;
 		int paperCopy[][] = new int[3][5];
 		boolean checkLine=false;
@@ -186,7 +185,7 @@ public class Main {
 	 * Funcion que comprueba si hay linea o bingo en cada uno de los cartones con cada bola que va saliendo en el pot.
 	 * @param papers int Array papers en el que la primera dimension es el numero de carton y las otras dos los calores que se comprueban.
 	 */
-	static void checkPapers(int papers[][][]){
+	private static void checkPapers(int papers[][][]){
 		//Bucle que comprueba si hay linea o bingo en cada uno de los cartones.
 
 		for (int i = 0; i < papers.length; i++) {
@@ -219,7 +218,7 @@ public class Main {
 	 * función que coge el número de cartones que quieres jugar.
 	 * @param num numero de cartones que se van a crear
 	 */
-	static int[][][] createPapers(int num){
+	private static int[][][] createPapers(int num){
 
 		int arrayCreatePaper[][][] = new int [num][3][5];
 
@@ -239,7 +238,7 @@ public class Main {
 	 * Then, places them in a two dimensions array for an easier checking of lines
 	 * @return paper array
 	 */
-	static int[][] createPaper(){
+	private static int[][] createPaper(){
 		int quantity = 5; // random numbers
 		int lines = 3; // lines
 		int [] array = new int [quantity*lines]; // single array for order
@@ -247,7 +246,7 @@ public class Main {
 
 		// Fill the first array
 		for (int i = 0; i < quantity*lines ; i++) {
-			int number = 0;
+			int number;
 			do{
 				number = (int)((1 + Math.random() * 90));
 			}while(exists(number, array)); // Call the function to check numbers
@@ -273,7 +272,7 @@ public class Main {
 	 * @param array
 	 * @return true or false (depens on the existence of the number in the array)
 	 */
-	public static boolean exists(int number, int [] array){
+	private static boolean exists(int number, int[] array){
 		for (int i = 0; i < array.length; i++) {
 			// Checks if number exists at "i" in the array
 			if(number == array[i]){
