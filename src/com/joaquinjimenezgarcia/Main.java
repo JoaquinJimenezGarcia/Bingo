@@ -215,17 +215,19 @@ public class Main {
 
 	//////////// PARTE DE JORGE ////////////
 
-	static void createPapers() {
-		Scanner input = new Scanner(System.in);
+	/**
+	 * función que coge el número de cartones que quieres jugar.
+	 * @param num numero de cartones que se van a crear
+	 */
+	static int[][][] createPapers(int num){
 
-		int num;
+		int arrayCreatePaper[][][] = new int [num][3][5];
 
-		System.out.println("Numero de cartones para jugar:");
-		num=input.nextInt();
 
 		for (int i = 0; i < num ; i++) {
-			createPaper();
+			arrayCreatePaper[i] = createPaper();
 		}
+		return arrayCreatePaper;
 	}
 
 	////////////////////////////////////////
