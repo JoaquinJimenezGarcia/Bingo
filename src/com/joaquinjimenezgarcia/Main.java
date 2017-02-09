@@ -42,18 +42,17 @@ public class Main {
 	 */
 	private static void nextTurn(){
 
-		for (int i=0; i < pot.length; i++){
+		System.out.println(pot[currentBall]);
+			currentBall++;
 
-			// A partir de la quinta bola sacada del bote, comprobamos con la función checkLine si se produce línea con
-			// cada nueva bola sacada
-			if (i >= 4){
+			// Antes de la quinta bola sacada no se puede producir una línea,
+			// por lo tanto comprobamos la función checkpapers a partir de
+		    // la quinta bola.
+			if (currentBall >= 4){
 				checkPapers(papers);
+			}else {
+				nextTurn();
 			}
-			// Imprimimos las bolas extraídas del bote
-			System.out.println();
-			System.out.println("Bola " + pot[i]);
-			System.out.println();
-		}
 	}
 
 
