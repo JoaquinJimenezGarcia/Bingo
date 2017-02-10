@@ -1,6 +1,7 @@
 package com.joaquinjimenezgarcia;
 
 import java.util.Arrays;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 @SuppressWarnings({"ForLoopReplaceableByForEach", "ManualArrayCopy"})
@@ -21,11 +22,19 @@ public class Main {
 	private static Scanner input = new Scanner(System.in);
 
 	public static void main(String[] args) {
-		int numCartones;
+		int numPapers = 0;
 
-		System.out.print("Introduzca el número de cartones a generar: ");
-		numCartones = input.nextInt();
-		papers = createPapers(numCartones);
+		do {
+			try {
+				System.out.print("Introduzca el número de cartones a generar: ");
+				numPapers = input.nextInt();
+			} catch(InputMismatchException e) {
+				System.out.println("Por favor, introduzca un número válido.");
+				input.next(); // Desatascar el scanner
+			}
+		} while(numPapers <= 0);
+
+		papers = createPapers(numPapers);
 
 		for (int i = 0; i < papers.length; i++) {
 			int[][] paper = papers[i];
@@ -43,8 +52,6 @@ public class Main {
 		pot = createPot();
 		nextTurn();
 	}
-
-	//////////// PARTE DE MARCO ////////////
 
 	/**
 	 *	Función que coge las bolas del bote generado y las va sacando de 1 en 1 y mostrando por pantalla.
@@ -66,11 +73,6 @@ public class Main {
 			nextTurn();
 		}
 	}
-
-
-	////////////////////////////////////////
-
-	//////////// PARTE DE PABLO ////////////
 
 	/**
 	 * Desordena el array dado de forma aleatoria
@@ -122,10 +124,6 @@ public class Main {
 		return result;
 	}
 
-	////////////////////////////////////////
-
-	//////////// PARTE DE ALE //////////////
-
 	/**
 	 * Funcion Que crea un bote con numeros del 1 al 90 desordenados
 	 * @return Devuelve el bote desordenado
@@ -140,10 +138,6 @@ public class Main {
 		//Llamada a la función de desordenación del array
 		return shuffleArray(array);
 	}
-
-	////////////////////////////////////////
-
-	//////////// PARTE DE FRAN /////////////
 
 	/**
 	 * Funcion que comprueba si un carton tiene linea o bingo,
@@ -223,11 +217,11 @@ public class Main {
 			switch (checkPaper(papers[i])){
 				case "bingo":
 					hasBingoComeOut = true;
-					System.out.println("Hay bingo en el carton " + (i+1) + "!!!!");
+					System.out.println("Hay bingo en el cartón " + (i+1) + "!!!!");
 					break;
 				case "line":
 					if (!hasLineComeOut) {
-						System.out.println("Hay linea en el carton " + (i+1) + "!\n");
+						System.out.println("Hay linea en el cartón " + (i+1) + "!\n");
 						hasLineComeOut = true;
 					}
 					break;
@@ -240,13 +234,6 @@ public class Main {
 
 		nextTurn();
 	}
-
-
-
-
-	////////////////////////////////////////
-
-	//////////// PARTE DE JORGE ////////////
 
 	/**
 	 * función que coge el número de cartones que quieres jugar.
@@ -262,10 +249,6 @@ public class Main {
 		}
 		return arrayCreatePaper;
 	}
-
-	////////////////////////////////////////
-
-	//// PARTE DEL PUTO AMO DE JOAKI ////
 
 	/**
 	 * First creates a single array with no-repeated numbers and orders it.
@@ -315,8 +298,6 @@ public class Main {
 		}
 		return false; // If doesn't exist, returns false
 	}
-
-	////////////////////////////////////////
 }
 
 /*
